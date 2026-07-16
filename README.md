@@ -83,67 +83,7 @@ mkdir src
 ---
 
 ## 4. Express Server
-
-Create:
-
-```text
-src/server.js
-```
-
-```javascript
-import express from "express";
-import dotenv from "dotenv";
-import mongoose from "mongoose";
-
-dotenv.config();
-
-const app = express();
-
-app.use(express.json());
-
-const PORT = process.env.PORT || 5000;
-
-const connectDB = async () => {
-  try {
-    await mongoose.connect(process.env.MONGO_URI);
-    console.log("MongoDB Atlas connected");
-  } catch (error) {
-    console.error("MongoDB connection failed:", error.message);
-    process.exit(1);
-  }
-};
-
-app.get("/", (req, res) => {
-  return res.status(200).json({
-    success: true,
-    message: "Docker API is running",
-  });
-});
-
-app.get("/api/health", (req, res) => {
-  return res.status(200).json({
-    success: true,
-    api: "healthy",
-    database:
-      mongoose.connection.readyState === 1
-        ? "connected"
-        : "disconnected",
-    environment: process.env.NODE_ENV,
-    timestamp: new Date().toISOString(),
-  });
-});
-
-const startServer = async () => {
-  await connectDB();
-
-  app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Server running on port ${PORT}`);
-  });
-};
-
-startServer();
-```
-
+server.js
 ### Why `0.0.0.0`?
 
 ```javascript
