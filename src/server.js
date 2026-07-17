@@ -30,8 +30,8 @@ app.get("/api/health", (req, res) => {
   res.json({
     success: true,
     api: "healthy",
-    database:
-      mongoose.connection.readyState === 1 ? "connected" : "disconnected",
+    database: mongoose.connection.readyState === 1 ? "connected" : "disconnected",
+     
   });
 });
 
